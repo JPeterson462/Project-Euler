@@ -40,5 +40,19 @@ public class Utils {
 		}
 		return str;
 	}
+	
+	public static int countDivisors(int n) {
+		int divisors = 0;
+		for (int i = 1; i * i <= n; i++) {
+			if (n % i == 0) {
+				if (n / i == i) {
+					divisors++;
+				} else {
+					divisors += 2;
+				}
+			}
+		}
+		return divisors;
+	}
 
 }
