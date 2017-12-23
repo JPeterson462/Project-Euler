@@ -54,5 +54,27 @@ public class Utils {
 		}
 		return divisors;
 	}
+	
+	public static int sumDivisors(int n) {
+		int sum = 1, max = (int) Math.sqrt(n);
+		for (int i = 2; i <= max; i++) {
+			if (n % i == 0) {
+				sum += i;
+				int inv = n / i;
+				if (inv != i) {
+					sum += inv;
+				}
+			}
+		}
+		return sum;
+	}
+	
+	public static String[] splitCommaSeparatedQuotes(String input) {
+		String[] output = input.split(",");
+		for (int i = 0; i < output.length; i++) {
+			output[i] = output[i].substring(1, output[i].length() - 1);
+		}
+		return output;
+	}
 
 }
