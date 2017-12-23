@@ -10,14 +10,15 @@ public class Project14 implements BasicProject {
 		new Project14().run();
 	}
 	
-	private HashMap<Integer, Integer> chainLengths;
+	private HashMap<Long, Long> chainLengths;
 	
 	@Override
 	public void run() {
-		int n = 1, length = 1;
+		long n = 1, length = 1;
 		chainLengths = new HashMap<>();
-		for (int i = 1; i <= 1_000_000; i++) {
-			int len = chainLength(i);
+		chainLengths.put(1L, 1L);
+		for (long i = 2; i <= 1_000_000; i++) {
+			long len = chainLength(i);
 			if (len > length) {
 				n = i;
 				length = len;
@@ -26,20 +27,16 @@ public class Project14 implements BasicProject {
 		System.out.println("N: " + n);
 	}
 	
-	public int chainLength(int n) {
-		if (n <= 1) {
-			return 1;
-		}
+	public long chainLength(long n) {
 		if (!chainLengths.containsKey(n)) {
-			int next = nextTerm(n);
-			System.out.println(n + ", " + next);
-			int length = 1 + chainLength(next);
+			long next = nextTerm(n);
+			long length = 1 + chainLength(next);
 			chainLengths.put(n, length);
 		}
 		return chainLengths.get(n);
 	}
 	
-	private int nextTerm(int n) {
+	private long nextTerm(long n) {
 		if (n % 2 == 0) {
 			return n / 2;
 		}
