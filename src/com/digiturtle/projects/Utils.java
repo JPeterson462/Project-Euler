@@ -76,5 +76,33 @@ public class Utils {
 		}
 		return output;
 	}
+	
+	public static boolean isPandigital(String str) {
+		int upTo = str.length();
+		for (int n = 1; n <= upTo; n++) {
+			if (str.indexOf(String.valueOf(n).charAt(0)) < 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static int gcd(int a, int b) {
+		if (b == 0) {
+			return a;
+		} else {
+			return gcd(b, a % b);
+		}
+	}
+	
+	public static int factorial(int n) {
+		int prod = 1;
+		int i = n;
+		while (i > 0) {
+			prod *= i;
+			i--;
+		}
+		return prod;
+	}
 
 }
