@@ -78,8 +78,12 @@ public class Utils {
 	}
 	
 	public static boolean isPandigital(String str) {
+		return isPandigital(str, 1);
+	}
+	
+	public static boolean isPandigital(String str, int start) {
 		int upTo = str.length();
-		for (int n = 1; n <= upTo; n++) {
+		for (int n = start; n <= upTo; n++) {
 			if (str.indexOf(String.valueOf(n).charAt(0)) < 0) {
 				return false;
 			}
@@ -103,6 +107,17 @@ public class Utils {
 			i--;
 		}
 		return prod;
+	}
+	
+	public static float[] solveQuadraticEquation(float a, float b, float c) {
+		// solution = (-b +- sqrt(b^2 - 4ac))/2a
+		float solPos = (float) ((-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a));
+		float solNeg = (float) ((-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a));
+		return new float[] { solPos, solNeg };
+	}
+	
+	public static boolean isInteger(float val) {
+		return (int) val == val;
 	}
 
 }
