@@ -5,9 +5,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Utils {
-	
+
 	public static boolean isPalindrome(String str) {
 		for (int i = 0; i < str.length() / 2 + 1; i++) {
 			int j = str.length() - i - 1;
@@ -17,7 +18,7 @@ public class Utils {
 		}
 		return true;
 	}
-	
+
 	public static String[] readFile(String filename) {
 		ArrayList<String> lines = new ArrayList<>();
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename)))) {
@@ -29,7 +30,7 @@ public class Utils {
 		}
 		return lines.toArray(new String[0]);
 	}
-	
+
 	public static String join(String[] array, String by) {
 		String str = "";
 		for (int i = 0; i < array.length; i++) {
@@ -40,7 +41,7 @@ public class Utils {
 		}
 		return str;
 	}
-	
+
 	public static int countDivisors(int n) {
 		int divisors = 0;
 		for (int i = 1; i * i <= n; i++) {
@@ -54,7 +55,7 @@ public class Utils {
 		}
 		return divisors;
 	}
-	
+
 	public static int sumDivisors(int n) {
 		int sum = 1, max = (int) Math.sqrt(n);
 		for (int i = 2; i <= max; i++) {
@@ -68,7 +69,29 @@ public class Utils {
 		}
 		return sum;
 	}
-	
+
+	public static int primeFactors(int n) {
+		int count = 0;
+		if (n % 2 == 0) {
+			count++;
+		}
+		while (n % 2 == 0) {
+			n /= 2;
+		}
+		for (int i = 3; i <= Math.sqrt(n); i+= 2) {
+			if (n % i == 0) {
+				count++;
+			}
+			while (n % i == 0) {
+				n /= i;
+			}
+		}
+		if (n > 2) {
+			count++;
+		}
+		return count;
+	}
+
 	public static String[] splitCommaSeparatedQuotes(String input) {
 		String[] output = input.split(",");
 		for (int i = 0; i < output.length; i++) {
@@ -76,11 +99,11 @@ public class Utils {
 		}
 		return output;
 	}
-	
+
 	public static boolean isPandigital(String str) {
 		return isPandigital(str, 1);
 	}
-	
+
 	public static boolean isPandigital(String str, int start) {
 		int upTo = str.length();
 		for (int n = start; n <= upTo; n++) {
@@ -90,7 +113,7 @@ public class Utils {
 		}
 		return true;
 	}
-	
+
 	public static int gcd(int a, int b) {
 		if (b == 0) {
 			return a;
@@ -98,7 +121,7 @@ public class Utils {
 			return gcd(b, a % b);
 		}
 	}
-	
+
 	public static int factorial(int n) {
 		int prod = 1;
 		int i = n;
@@ -108,16 +131,46 @@ public class Utils {
 		}
 		return prod;
 	}
-	
+
 	public static float[] solveQuadraticEquation(float a, float b, float c) {
 		// solution = (-b +- sqrt(b^2 - 4ac))/2a
 		float solPos = (float) ((-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a));
 		float solNeg = (float) ((-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a));
 		return new float[] { solPos, solNeg };
 	}
-	
+
 	public static boolean isInteger(float val) {
 		return (int) val == val;
+	}
+	
+	public static boolean isPermutation(String s0, String s1) {
+		char[] c0 = s0.toCharArray(), c1 = s1.toCharArray();
+		Arrays.sort(c0);
+		Arrays.sort(c1);
+		return Arrays.equals(c0, c1);
+	}
+	
+	public static String and(String s0, String s1, int[] mask) {
+		String str = "";
+		for (int i = 0; i < mask.length; i++) {
+			if (mask[i] > 0) {
+				str += s0.charAt(i);
+			} else {
+				str += s1.charAt(i);
+			}
+		}
+		return str;
+	}
+	
+	public static int[] getMask(String str, int length) {
+		int[] mask = new int[length];
+		for (int i = 0; i < length - str.length(); i++) {
+			mask[i] = 0;
+		}
+		for (int i = length - str.length(); i < length; i++) {
+			mask[i] = Integer.parseInt("" + str.charAt(i - (length - str.length())));
+		}
+		return mask;
 	}
 
 }
