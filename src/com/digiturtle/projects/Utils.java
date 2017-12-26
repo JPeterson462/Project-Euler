@@ -4,11 +4,17 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Utils {
 
+	public static boolean isPalindrome(int n) {
+		return isPalindrome(Integer.toString(n));
+	}
+	
 	public static boolean isPalindrome(String str) {
 		for (int i = 0; i < str.length() / 2 + 1; i++) {
 			int j = str.length() - i - 1;
@@ -172,5 +178,60 @@ public class Utils {
 		}
 		return mask;
 	}
+	
+	public static String sortLetters(String str) {
+		char[] letters = str.toCharArray();
+		char[] result = Arrays.copyOf(letters, letters.length);
+		Arrays.sort(result);
+		return new String(result);
+	}
+	
+	public static long reverse(long n) {
+		long num = 0;
+		while (n > 0) {
+			long digit = n % 10;
+			num = num * 10 + digit;
+			n = (n - digit) / 10;
+		}
+		return num;
+	}
+	
+	public static String reverse(String str) {
+		char[] c = new char[str.length()];
+		for (int i = 0; i < c.length; i++) {
+			c[i] = str.charAt(c.length - i - 1);
+		}
+		return new String(c);
+	}
+	
+	public static int sumDigits(String str) {
+		int sum = 0;
+		for (int i = 0; i < str.length(); i++) {
+			sum += Integer.parseInt(str.charAt(i) + "");
+		}
+		return sum;
+	}
+	
+	public static long[] toFractionPos(BigDecimal x) {
+        String[] parts = x.toString().split("\\.");
+        BigDecimal den = BigDecimal.TEN.pow(parts[1].length()); // denominator
+        BigDecimal num = (new BigDecimal(parts[0]).multiply(den)).add(new BigDecimal(parts[1])); // numerator
+        return reduceFraction(num.longValue(), den.longValue());
+    }
+
+    public static long[] reduceFraction(long num, long den) {
+        long gcd = BigInteger.valueOf(num).gcd(BigInteger.valueOf(den)).longValue(); // greatest
+        long[] rf = { num / gcd, den / gcd };
+        return rf;
+    }
+    
+    public static int countDigits(long d) {
+    	int count = 0;
+    	while (d > 0) {
+    		d = (d - d % 10) / 10;
+    		count++;
+    	}
+    	return count;
+    }
 
 }

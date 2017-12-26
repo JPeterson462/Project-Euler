@@ -17,11 +17,14 @@ public class Project53 implements BasicProject {
 			factorials[i] = factorial(new BigInteger(i + ""));
 		}
 		int count = 0;
+		BigInteger million = new BigInteger(1_000_000 + "");
 		for (int n = 1; n <= 100; n++) {
-			for (int r = 1; r < n; r++) {
-				BigInteger result = factorials[n].divide(factorials[r].multiply(factorials[n - r]));
-				if (result.intValue() > 1_000_000) {
-					System.out.println(n + " choose " + r);
+			for (int r = 1; r <= n; r++) {
+				BigInteger nf = factorials[n], rf = factorials[r], nrf = factorials[n - r];
+				BigInteger den = rf.multiply(nrf);
+				BigInteger num = nf;
+				BigInteger result = num.divide(den);
+				if (result.compareTo(million) >= 0) {
 					count++;
 				}
 			}
